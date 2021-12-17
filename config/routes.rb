@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :create_organization_requests
   resources :visitor_messages
   resources :stakeholder_requests
   resources :join_messages_recipients

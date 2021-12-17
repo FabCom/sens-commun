@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Create Organization Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Nickname</th>
+      <th>Creation date</th>
+      <th>Address</th>
+      <th>Address complement</th>
+      <th>Zip code</th>
+      <th>City</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Status</th>
+      <th>Siren</th>
+      <th>Description</th>
+      <th>Activity sector</th>
+      <th>Naf ape</th>
+      <th>Logo url</th>
+      <th>Website url</th>
+      <th>Validation</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @create_organization_requests.each do |create_organization_request| %>
+      <tr>
+        <td><%= create_organization_request.name %></td>
+        <td><%= create_organization_request.nickname %></td>
+        <td><%= create_organization_request.creation_date %></td>
+        <td><%= create_organization_request.address %></td>
+        <td><%= create_organization_request.address_complement %></td>
+        <td><%= create_organization_request.zip_code %></td>
+        <td><%= create_organization_request.city_id %></td>
+        <td><%= create_organization_request.email %></td>
+        <td><%= create_organization_request.phone_number %></td>
+        <td><%= create_organization_request.status_id %></td>
+        <td><%= create_organization_request.siren %></td>
+        <td><%= create_organization_request.description %></td>
+        <td><%= create_organization_request.activity_sector_id %></td>
+        <td><%= create_organization_request.naf_ape %></td>
+        <td><%= create_organization_request.logo_url %></td>
+        <td><%= create_organization_request.website_url %></td>
+        <td><%= create_organization_request.validation %></td>
+        <td><%= create_organization_request.user_id %></td>
+        <td><%= link_to 'Show', create_organization_request %></td>
+        <td><%= link_to 'Edit', edit_create_organization_request_path(create_organization_request) %></td>
+        <td><%= link_to 'Destroy', create_organization_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Create Organization Request', new_create_organization_request_path %>

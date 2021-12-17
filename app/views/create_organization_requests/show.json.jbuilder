@@ -1,0 +1,1 @@
+json.partial! "create_organization_requests/create_organization_request", create_organization_request: @create_organization_request
