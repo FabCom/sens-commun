@@ -1,5 +1,6 @@
 class CreateOrganizationRequestsController < ApplicationController
   before_action :set_create_organization_request, only: %i[ show edit update destroy ]
+  before_action :has_user_rights?, only: %i[ index show new edit create update  ]
 
   # GET /create_organization_requests or /create_organization_requests.json
   def index

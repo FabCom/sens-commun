@@ -1,94 +1,117 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="row mt-5">
+        <%unless admin_signed_in?%>
+          <h1>Votre demande de création d'organisation <span><%= link_to 'Éditer ma demande', edit_create_organization_request_path(@create_organization_request), class:"btn btn-success btn-sm" %></span></h1>
+        <%end%>
+        <%if admin_signed_in?%>
+          <h1>Utilisateur à l'origine de la demande : <%= @create_organization_request.user.email %></h1>
+          <span><%= render "create_organization/form", @create_organization_request %></span>
+        <%end%>
+        <div class="col card p-5">
+          <div class="row">
+            <%if @create_organization_request.validation != 1 %>
+              <h3>La demande n'a pas encore été validée. </h3>
+            <%else%>
+              <h3>La demande a été validée. </h3>
+            <%end%>
+          </div>
+          <div class="row mt-5">
+            <div class="col-3">
+              <p>
+                <strong>Nom :</strong>
+                <%= @create_organization_request.name %>
+              </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @create_organization_request.name %>
-</p>
+              <p>
+                <strong>Nom court :</strong>
+                <%= @create_organization_request.nickname %>
+              </p>
+              <p>
+              <strong>Date de création :</strong>
+                <%= format_date(@create_organization_request.creation_date) %>
+              </p>
+            </div>
+            <div class="col-3">
+              <p>
+                <strong>Email :</strong>
+                <%= @create_organization_request.email %>
+              </p>
 
-<p>
-  <strong>Nickname:</strong>
-  <%= @create_organization_request.nickname %>
-</p>
+              <p>
+                <strong>Téléphone :</strong>
+                <%= @create_organization_request.phone_number %>
+              </p>
+              <p>
+                <strong>Adresse :</strong>
+                <%= @create_organization_request.address %>
+              </p>
 
-<p>
-  <strong>Creation date:</strong>
-  <%= @create_organization_request.creation_date %>
-</p>
+              <p>
+                <strong>Complément d'adresse :</strong>
+                <%= @create_organization_request.address_complement %>
+              </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @create_organization_request.address %>
-</p>
+              <p>
+                <strong>Code postal :</strong>
+                <%= @create_organization_request.zip_code %>
+              </p>
 
-<p>
-  <strong>Address complement:</strong>
-  <%= @create_organization_request.address_complement %>
-</p>
+              <p>
+                <strong>Ville :</strong>
+                <%= @create_organization_request.city.name %>
+              </p>
+            
+            </div>
+            <div class="col-3">
+              <p>
+                <strong>Statut juridique :</strong>
+                <%= @create_organization_request.status_id %>
+              </p>
 
-<p>
-  <strong>Zip code:</strong>
-  <%= @create_organization_request.zip_code %>
-</p>
+              <p>
+                <strong>Siren :</strong>
+                <%= @create_organization_request.siren %>
+              </p>
+              <p>
+                <strong>Secteur d'activit":</strong>
+                <%= @create_organization_request.activity_sector_id %>
+              </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @create_organization_request.city_id %>
-</p>
+              <p>
+                <strong>NAF/APE:</strong>
+                <%= @create_organization_request.naf_ape %>
+              </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @create_organization_request.email %>
-</p>
+            </div>
+            <div class="col-3">
+              <p>
+                <strong>url du logo :</strong>
+                <%= @create_organization_request.logo_url %>
+              </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @create_organization_request.phone_number %>
-</p>
+              <p>
+                <strong>url du site internet</strong>
+                <%= @create_organization_request.website_url %>
+              </p>
+            </div>
+            <div class="row p-5">
+              <p> <strong>Description:</strong></p>
+              <p><%= @create_organization_request.description %></p>
+              
+            </div>
+          </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @create_organization_request.status_id %>
-</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <%= render "organization/index" %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Siren:</strong>
-  <%= @create_organization_request.siren %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @create_organization_request.description %>
-</p>
 
-<p>
-  <strong>Activity sector:</strong>
-  <%= @create_organization_request.activity_sector_id %>
-</p>
 
-<p>
-  <strong>Naf ape:</strong>
-  <%= @create_organization_request.naf_ape %>
-</p>
-
-<p>
-  <strong>Logo url:</strong>
-  <%= @create_organization_request.logo_url %>
-</p>
-
-<p>
-  <strong>Website url:</strong>
-  <%= @create_organization_request.website_url %>
-</p>
-
-<p>
-  <strong>Validation:</strong>
-  <%= @create_organization_request.validation %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @create_organization_request.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_create_organization_request_path(@create_organization_request) %> |
-<%= link_to 'Back', create_organization_requests_path %>

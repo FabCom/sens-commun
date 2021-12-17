@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_14_114537) do
+ActiveRecord::Schema.define(version: 2021_12_17_135333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,33 @@ ActiveRecord::Schema.define(version: 2021_12_14_114537) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "create_organization_requests", force: :cascade do |t|
+    t.string "name"
+    t.string "nickname"
+    t.datetime "creation_date"
+    t.string "address"
+    t.string "address_complement"
+    t.string "zip_code"
+    t.bigint "city_id", null: false
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "status_id", null: false
+    t.string "siren"
+    t.text "description"
+    t.bigint "activity_sector_id", null: false
+    t.string "naf_ape"
+    t.string "logo_url"
+    t.string "website_url"
+    t.boolean "validation"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activity_sector_id"], name: "index_create_organization_requests_on_activity_sector_id"
+    t.index ["city_id"], name: "index_create_organization_requests_on_city_id"
+    t.index ["status_id"], name: "index_create_organization_requests_on_status_id"
+    t.index ["user_id"], name: "index_create_organization_requests_on_user_id"
   end
 
   create_table "external_stakeholders", force: :cascade do |t|
@@ -208,6 +235,10 @@ ActiveRecord::Schema.define(version: 2021_12_14_114537) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "activity_sectors"
   add_foreign_key "activities", "organizations"
+  add_foreign_key "create_organization_requests", "activity_sectors"
+  add_foreign_key "create_organization_requests", "cities"
+  add_foreign_key "create_organization_requests", "statuses"
+  add_foreign_key "create_organization_requests", "users"
   add_foreign_key "external_stakeholders", "organizations"
   add_foreign_key "external_stakeholders", "stakeholder_categories"
   add_foreign_key "join_messages_recipients", "private_messages"

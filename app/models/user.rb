@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :managed_organizations, through: :legal_reps, source: :organization
   has_many :stakeholder_requests
   has_many :organization_participation_requests, through: :stakeholder_requests, source: :organization
+  has_many :create_organization_requests
 
   def private_messages
     sent_messages + received_messages
