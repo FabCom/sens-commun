@@ -1,6 +1,7 @@
-<table>
+<table class= "table table-dark table-hover">
   <thead>
     <tr>
+      <th>Email</th>
       <th>Utilisateur</th>
       <th>Message</th>
       <th>Catégorie ?</th>
@@ -9,7 +10,12 @@
   <tbody>
     <% @stakeholder_requests.each do |stakeholder_request| %>
       <tr>
-        <td><%= stakeholder_request.user_id %></td>
+        <td><%= stakeholder_request.user.email %></td>
+        <%if stakeholder_request.user.profile && stakeholder_request.user.profile.first_name && stakeholder_request.user.profile.last_name %>
+            <td><%= stakeholder_request.user.profile.first_name + " " + stakeholder_request.user.profile.last_name%></td>
+        <%else%>
+          <td>Profil non renseigné</td>
+        <%end%>
         <td><%= stakeholder_request.message %></td>
         <td><%= render "stakeholder_requests/form", stakeholder_request: stakeholder_request %><br></td>
       </tr>
