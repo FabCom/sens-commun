@@ -28,10 +28,10 @@ class StakeholderRequestsController < ApplicationController
     @stakeholder_request.validation = 0
     respond_to do |format|
         if @stakeholder_request.save
-          format.html { redirect_to organization_path(id:@stakeholder_request.organization.id ,organization_managed_id: @stakeholder_request.organization.id), success: "Stakeholder request was successfully created." }
+          format.html { redirect_to organization_path(id:@stakeholder_request.organization.id), success: "Stakeholder request was successfully created." }
           format.json { render :show, status: :created, location: @stakeholder_request }
         else
-          format.html { redirect_to organization_path(id: @stakeholder_request.organization.id , organization_managed_id: @stakeholder_request.organization.id), danger: "Stakeholder request was denied."}
+          format.html { redirect_to organization_path(id: @stakeholder_request.organization.id), danger: "Stakeholder request was denied."}
           format.json { render json: @stakeholder_request.errors, status: :unprocessable_entity }
         end
     end
@@ -47,12 +47,14 @@ class StakeholderRequestsController < ApplicationController
     respond_to do |format|
       if @stakeholder_request.update(stakeholder_request_params)
         
-        ExternalStakeholder.create(user:@stakeholder_request.user, email: @stakeholder_request.user.email, stakeholder_category_id: stakeholder_category_id, organization: @stakeholder_request.organization)
-
-        format.html {redirect_to external_stakeholders_path(organization_managed_id: @stakeholder_request.organization.id), success: "Stakeholder request was successfully updated." }
+        external_stakeholder_request = ExternalStakeholder.create(user:@stakeholder_request.user, email: @stakeholder_request.user.email, stakeholder_category_id: stakeholder_category_id, organization: @stakeholder_request.organization)
+        if external_stakeholder_request  
+          @stakeholder_request.destroy
+        end
+        format.html {redirect_to external_stakeholders_path, success: "Stakeholder request was successfully updated." }
         format.json { render :show, status: :ok, location: @stakeholder_request }
       else
-        format.html { redirect_to  external_stakeholders_path(organization_managed_id: @stakeholder_request.organization.id), status: :unprocessable_entity }
+        format.html { redirect_to  external_stakeholders_path, status: :unprocessable_entity }
         format.json { render json: @stakeholder_request.errors, status: :unprocessable_entity }
       end
     end
@@ -63,7 +65,7 @@ class StakeholderRequestsController < ApplicationController
     organization_id = @stakeholder_request.organization.id
     @stakeholder_request.destroy
     respond_to do |format|
-      format.html { redirect_to organization_path(organization_managed_id: @stakeholder_request.organization.id), success: "Stakeholder request was successfully destroyed." }
+      format.html { redirect_to external_stakeholders_path, success: "Stakeholder request was successfully destroyed." }
       format.json { head :no_content }
     end
   end
